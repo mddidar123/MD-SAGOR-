@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD DIDAR</title>
+
+<style>
+body{
+    margin:0;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    font-family:Arial;
+    color:#fff;
+}
+
+.logo{
+    text-align:center;
+    margin-top:30px;
+}
+
+.logo img{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+
+.name{
+    text-align:center;
+    margin-top:12px;
+    font-size:22px;
+    font-weight:700;
+}
+
+.box{
+    max-width:340px;
+    margin:14px auto;
+    padding:15px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform:scale(1.05);
+}
+
+.box img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+}
+
+.facebook{background:#1877F2;}
+.tiktok{background:#000;}
+.whatsapp{background:#25D366;}
+.telegram{background:#229ED9;}
+.gmail{background:#EA4335;}
+.imo{background:#8E24AA;}
+
+.footer{
+    text-align:center;
+    margin:30px 0;
+    font-size:14px;
+    opacity:0.8;
+}
+</style>
+
+<!-- Firebase v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+</head>
+<body>
+
+<div class="logo">
+<img id="logoImg" src="https://i.supaimg.com/1f2a8798-2527-40d1-a1b0-7104141254ae.png">
+</div>
+
+<div class="name" id="displayName">Loading...</div>
+
+<div class="box facebook" onclick="openLink(data.facebook)">
+<img src="https://i.supaimg.com/27ca8421-9c85-4bcb-a651-64eb50be501a.png">
+Facebook
+</div>
+
+<div class="box tiktok" onclick="openLink(data.tiktok)">
+<img src="https://i.supaimg.com/2e425707-cb45-4424-ab1f-6d6202084c3e.png">
+TikTok
+</div>
+
+<div class="box whatsapp" onclick="openLink(data.whatsapp)">
+<img src="https://i.supaimg.com/e28ee10a-38a7-41af-955e-299710e351e2.png">
+WhatsApp
+</div>
+
+<div class="box telegram" onclick="openLink(data.telegram)">
+<img src="https://i.supaimg.com/5ddc004b-3df0-4251-9c41-eb4a8cc271d8.png">
+Telegram
+</div>
+
+<div class="box gmail" onclick="openLink('mailto:'+data.gmail)">
+<img src="https://i.supaimg.com/e8e94a44-b73c-4c54-9550-bd7910746fad.png">
+Gmail
+</div>
+
+<div class="box imo" onclick="openLink('https://imo.im/'+data.imo)">
+<img src="https://i.supaimg.com/ffc25d47-7f2f-466a-9d2a-282eb9be33f6.png">
+IMO
+</div>
+
+<div class="footer">
+© 2026 VIP
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA-6Nfo7zru3nLqEllFzaivBt-__RwueD8",
+  authDomain: "fx-tournament-d57d5.firebaseapp.com",
+  databaseURL: "https://fx-tournament-d57d5-default-rtdb.firebaseio.com",
+  projectId: "fx-tournament-d57d5",
+  storageBucket: "fx-tournament-d57d5.firebasestorage.app",
+  messagingSenderId: "1068483430863",
+  appId: "1:1068483430863:web:d5561942c7817f3a362aba",
+  measurementId: "G-CM6CF96CBP"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let data = {};
+
+db.ref("panelData").on("value", function(snapshot){
+    data = snapshot.val() || {};
+
+    if(data.logo){
+        document.getElementById("logoImg").src = data.logo;
+    }
+
+    if(data.name){
+        document.getElementById("displayName").innerText = data.name;
+    }
+});
+
+function openLink(link){
+    if(link){
+        window.open(link,"_blank");
+    }else{
+        alert("Link Not Set By Admin");
+    }
+}
+</script>
+
+</body>
+</html>
